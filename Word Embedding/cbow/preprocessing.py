@@ -15,7 +15,8 @@ args = Namespace(
     train_proportion=0.7,
     val_proportion=0.15,
     test_proportion=0.15,
-    seed=1337
+    seed=1337,
+    MASK_TOKEN="<MASK>"
 )
 
 with open(args.raw_dataset_txt) as fp:
@@ -42,11 +43,10 @@ cleaned_sentences = [tokenizer.tokenize(sentence.lower()) for sentence in senten
 #
 # print(cleaned_sentences[100])
 
-MASK_TOKEN = "<MASK>"
-
 # Create windows
 def extract_ngrams(data, num):
-    n_grams = ngrams(tokenizer.tokenize(data), num, pad_left=True, pad_right=True, left_pad_symbol=MASK_TOKEN, right_pad_symbol=MASK_TOKEN)
+    n_grams = ngrams(tokenizer.tokenize(data), num, pad_left=True, pad_right=True,\
+                     left_pad_symbol=args.MASK_TOKEN, right_pad_symbol=args.MASK_TOKEN)
     return [' '.join(grams) for grams in n_grams]
 
 windows = []
