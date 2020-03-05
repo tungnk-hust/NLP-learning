@@ -56,14 +56,14 @@ def compute_accuracy(y_pred, y_target):
 def visualize_train(train_state, ):
     plt.figure()
     plt.subplot(121)
-    plt.plot(np.arange((train_state['epoch_index'])), train_state['train_loss'])
-    plt.plot(np.arange((train_state['epoch_index'])), train_state['val_loss'])
+    plt.plot(np.arange(len(train_state['train_loss'])), train_state['train_loss'])
+    plt.plot(np.arange(len(train_state['val_loss'])), train_state['val_loss'])
     plt.xlabel('Epoch')
     plt.ylabel('Loss')
 
     plt.subplot(221)
-    plt.plot(np.arange((train_state['epoch_index'])), train_state['train_acc'])
-    plt.plot(np.arange((train_state['epoch_index'])), train_state['val_acc'])
+    plt.plot(np.arange(len(train_state['train_acc'])), train_state['train_acc'])
+    plt.plot(np.arange(len(train_state['train_acc'])), train_state['train_acc'])
     plt.xlabel('Epoch')
     plt.ylabel('Accuracy')
 
@@ -176,7 +176,6 @@ try:
             y_pred = model(x)
 
             # compute loss
-
             loss = loss_f(y_pred, y_target)
             loss_t = loss.item()
             running_loss += (loss_t - running_loss) / (batch_index + 1)
